@@ -1,0 +1,1 @@
+C:\Users\ydong\AndroidStudioProjects\Sudoku2\opencv\build\intermediates\cxx\RelWithDebInfo\13vc5h4c\obj\x86

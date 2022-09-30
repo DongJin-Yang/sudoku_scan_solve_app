@@ -1,0 +1,1 @@
+C:\Users\ydong\AndroidStudioProjects\Sudoku2\opencv\build\intermediates\cxx\Debug\652g156w\obj\x86
