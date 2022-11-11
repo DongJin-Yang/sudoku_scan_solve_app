@@ -30,6 +30,7 @@ import org.opencv.core.MatOfDouble;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
+import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
@@ -169,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                                     Utils.bitmapToMat(image, matrix);
                                     Core.meanStdDev(matrix, new MatOfDouble(), mStdDev);
                                     double value = mStdDev.toArray()[0]*mStdDev.toArray()[0];
-                                    if (value <= 3600){
+                                    if (value <= 1000){
 //                                        temp.add(0);
                                         board_number[y][x] = 0;
                                     }
@@ -303,6 +304,20 @@ public class MainActivity extends AppCompatActivity {
         Mat destImage = new Mat();
         Imgproc.warpPerspective(bitwise, destImage, warpMat, new Size(width, height));
 
+        double midw = width/9;
+        double midh = height/9;
+
+        for (int i=0;i<10;i++){
+            Imgproc.line(destImage, new Point(0, midh*i), new Point(width, midh*i), new Scalar(0, 0, 0), 40);
+            Imgproc.line(destImage, new Point(midw*i, 0), new Point(midw*i, height), new Scalar(0, 0, 0), 40);
+        }
+
+
+        Imgproc.erode(destImage, destImage, Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3)));
+        Imgproc.dilate(destImage, destImage, Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2, 2)));
+
+
+
         Utils.matToBitmap(destImage, bitmap);
 
     }
@@ -326,15 +341,7 @@ public class MainActivity extends AppCompatActivity {
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
-//    public void setNumber(){
-//        for (int y=0;y<9;y++) {
-//            for (int x = 0; x < 9; x++) {
-//                gameBoardSolver.setNumber(x, y ,board_number[x][y]);
-//            }
-//        }
-//    }
 
-//    해당 보드에 숫자 입력
     public void BTNOnePress(View view){
         gameBoardSolver.setNumberPos(1);
         gameBoard.invalidate();

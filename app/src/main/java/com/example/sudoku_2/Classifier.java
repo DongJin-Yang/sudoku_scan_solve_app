@@ -18,9 +18,9 @@ import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 
 public class Classifier {
-//    private static final String MODEL_NAME = "keras_model_cnn.tflite";
-    private static final String MODEL_NAME = "augmented.tflite";
-
+    private static final String MODEL_NAME = "dilate.tflite";
+//private static final String MODEL_NAME = "augmented.tflite";
+//    private static final String MODEL_NAME = "model.tflite";
 
     Context context;
     Interpreter interpreter = null;
@@ -43,7 +43,7 @@ public class Classifier {
         // AssetManager를 얻음 -> assets 폴더에 저장된 리소스에 접근하기 위한 기능 제공
         AssetManager am = context.getAssets();
         // openFd() 함수에 tflite 파일명을 전다랗면 AssetFileDescriptor를 얻음
-        AssetFileDescriptor afd = am.openFd(modelName); ////  !!!!!!!!!!!!!!!! 여기 !!!!!!!!!!!!!!!!!
+        AssetFileDescriptor afd = am.openFd(modelName);
         // 읽은 파일의 FileDescriptor를 얻음 -> 파일의 읽기/쓰기 가능
         FileInputStream fis = new FileInputStream(afd.getFileDescriptor());
         FileChannel fc = fis.getChannel();
